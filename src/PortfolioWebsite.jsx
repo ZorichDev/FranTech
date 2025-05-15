@@ -302,7 +302,7 @@ export default function PortfolioWebsite() {
                 repoLink="https://github.com/ZorichDev/Iprolance-Solutions-LLC"
               />
               <ProjectCard 
-                title="Fitness Tracker"
+                title="Branding"
                 category="Web Application"
                 image={cyjust}
                 description="A Branding web application for cyjust deals company."
@@ -332,7 +332,7 @@ export default function PortfolioWebsite() {
                   
                   <div className="space-y-6">
                     <SkillCategory 
-                      title="Frontend Development"
+                      title="Frontend Development."
                       skills={[
                         { name: "HTML5/CSS3", level: 90 },
                         { name: "JavaScript (ES6+)", level: 85 },
