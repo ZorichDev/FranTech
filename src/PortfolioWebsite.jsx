@@ -4,6 +4,8 @@ import { BsMenuUp } from "react-icons/bs";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoMailUnread } from "react-icons/io5";
 import profileIMG from "./img/techboy.jpg"; 
+import Resume from "./img/franzor cv.pdf";
+import certificate from "./img/TECH ACADEMY CERTIFICATE (Mgbadigha Francis Chinazor).pdf";
 
 // Main App Component
 export default function PortfolioWebsite() {
@@ -132,14 +134,14 @@ export default function PortfolioWebsite() {
                    Contact Me
                     </button>
                   <a
-                    href="src/img/franzor cv.pdf" 
+                    href={Resume} 
                     download // forces download instead of opening in browser
                     className="px-6 py-3 border border-red-600 text-red-600 rounded-md hover:bg-red-900 hover:bg-opacity-20 transition-colors flex items-center gap-2">
                    <FaDownload size={18} />
                    Resume
                     </a>
                    <a
-                    href="src/img/TECH ACADEMY CERTIFICATE (Mgbadigha Francis Chinazor).pdf" 
+                    href={certificate} 
                     download // forces download instead of opening in browser
                     className="px-6 py-3 border border-red-600 text-red-600 rounded-md hover:bg-red-900 hover:bg-opacity-20 transition-colors flex items-center gap-2">
                    <FaDownload size={18} />
