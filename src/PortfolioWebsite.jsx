@@ -275,10 +275,10 @@ export default function PortfolioWebsite() {
                 repoLink="https://github.com/InternPulse-Frontend-March-2025/bankdash"
               />
               <ProjectCard 
-                title="Task Management App"
+                title="Real Estate"
                 category="Web Application"
                 image={betahomes}
-                description="A cross-platform task management web app built with Tailwind."
+                description="A Real Estate company website ."
                 techStack={["React ", "Tailwind", ]}
                 liveLink="https://betamerchanthomesandmore.com/"
                 repoLink="https://betamerchanthomesandmore.com/"
@@ -293,10 +293,10 @@ export default function PortfolioWebsite() {
                 repoLink="https://github.com/ZorichDev/Freelancer-Dashboard5"
               />
               <ProjectCard 
-                title="Weather Forecast App"
+                title="IT solution"
                 category="web Application"
                 image={IT}
-                description="A weather forecast application that utilizes multiple weather APIs."
+                description="A IT solution for Rpro Group of company."
                 techStack={["Html", "CSS", "EmailJS", ]}
                 liveLink="https://iprolance-solutions.cyjustdeals.com/"
                 repoLink="https://github.com/ZorichDev/Iprolance-Solutions-LLC"
@@ -305,7 +305,7 @@ export default function PortfolioWebsite() {
                 title="Fitness Tracker"
                 category="Web Application"
                 image={cyjust}
-                description="A fitness tracking application with user authentication and data visualization."
+                description="A Branding web application for cyjust deals company."
                 techStack={["HTML", "CSS", "Bootstrap"]}
                 liveLink="https://www.cyjustdeals.com/"
                 repoLink="https://github.com/Efezino218/cyjust_deals"
