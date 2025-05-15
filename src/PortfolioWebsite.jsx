@@ -258,7 +258,7 @@ export default function PortfolioWebsite() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
               <ProjectCard 
                 title="E-Commerce Platform"
-                category="Web Development"
+                category="Full Stack"
                 image={ecommerce}
                 description="A full-featured e-commerce platform built with React, Node.js, and MongoDB."
                 techStack={["React", "Node.js", "MongoDB", "Express"]}
@@ -276,7 +276,7 @@ export default function PortfolioWebsite() {
               />
               <ProjectCard 
                 title="Real Estate"
-                category="Web Application"
+                category="full Stack"
                 image={betahomes}
                 description="A Real Estate company website ."
                 techStack={["React ", "Tailwind", ]}
