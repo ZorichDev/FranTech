@@ -5,7 +5,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { IoMailUnread } from "react-icons/io5";
 import profileIMG from "./img/techboy.jpg"; 
 import Resume from "./img/franzor cv.pdf";
-import certificate from "./img/TECH ACADEMY CERTIFICATE (Mgbadigha Francis Chinazor).pdf";
+import certificate from "./img/TECH ACADEMY CERTIFICATE.pdf";
 import ecommerce from "./img/E-Commerce.PNG";
 import pospadi from "./img/pospadi.PNG";
 import betahomes from "./img/betahomes.PNG";
