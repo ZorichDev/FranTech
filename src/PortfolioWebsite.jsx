@@ -131,14 +131,14 @@ export default function PortfolioWebsite() {
                    Contact Me
                     </button>
                   <a
-                    href="src/assets/img/franzor cv.pdf" 
+                    href="src/img/franzor cv.pdf" 
                     download // forces download instead of opening in browser
                     className="px-6 py-3 border border-red-600 text-red-600 rounded-md hover:bg-red-900 hover:bg-opacity-20 transition-colors flex items-center gap-2">
                    <FaDownload size={18} />
                    Resume
                     </a>
                    <a
-                    href="src/assets/img/TECH ACADEMY CERTIFICATE (Mgbadigha Francis Chinazor).pdf" 
+                    href="src/img/TECH ACADEMY CERTIFICATE (Mgbadigha Francis Chinazor).pdf" 
                     download // forces download instead of opening in browser
                     className="px-6 py-3 border border-red-600 text-red-600 rounded-md hover:bg-red-900 hover:bg-opacity-20 transition-colors flex items-center gap-2">
                    <FaDownload size={18} />
@@ -150,7 +150,7 @@ export default function PortfolioWebsite() {
                 <div className="relative">
                   <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-red-600 shadow-xl mx-auto">
                     <img 
-                      src="src/assets/img/tech boy.jpg" 
+                      src="src/img/tech boy.jpg" 
                       alt="Profile" 
                       className="w-full h-full object-cover"
                     />
@@ -250,7 +250,7 @@ export default function PortfolioWebsite() {
               <ProjectCard 
                 title="E-Commerce Platform"
                 category="Web Development"
-                image="src/assets/img/E-Commerce.PNG"
+                image="src/img/E-Commerce.PNG"
                 description="A full-featured e-commerce platform built with React, Node.js, and MongoDB."
                 techStack={["React", "Node.js", "MongoDB", "Express"]}
                 liveLink="https://paintlifeltd.com/"
@@ -259,7 +259,7 @@ export default function PortfolioWebsite() {
               <ProjectCard 
                 title="FinTech"
                 category="Full Stack"
-                image="src/assets/img/pospadi.PNG"
+                image="src/img/pospadi.PNG"
                 description="A responsive Pos FinTech project."
                 techStack={["React", "Chakra ui",]}
                 liveLink="https://pospadi.com.ng"
@@ -268,7 +268,7 @@ export default function PortfolioWebsite() {
               <ProjectCard 
                 title="Task Management App"
                 category="Web Application"
-                image="src/assets/img/betahomes.PNG"
+                image="src/img/betahomes.PNG"
                 description="A cross-platform task management web app built with Tailwind."
                 techStack={["React ", "Tailwind", ]}
                 liveLink="https://betamerchanthomesandmore.com/"
@@ -277,7 +277,7 @@ export default function PortfolioWebsite() {
               <ProjectCard 
                 title="Personal Finance Dashboard"
                 category="Web Application"
-                image="src/assets/img/franzor.PNG"
+                image="src/img/franzor.PNG"
                 description="A dashboard for tracking personal finances with data visualization."
                 techStack={["React", "Chakra ui", "Chart.js"]}
                 liveLink="https://freelancer-dashboard5.netlify.app/profile"
@@ -286,7 +286,7 @@ export default function PortfolioWebsite() {
               <ProjectCard 
                 title="Weather Forecast App"
                 category="web Application"
-                image="src/assets/img/IT.PNG"
+                image="src/img/IT.PNG"
                 description="A weather forecast application that utilizes multiple weather APIs."
                 techStack={["Html", "CSS", "EmailJS", ]}
                 liveLink="https://iprolance-solutions.cyjustdeals.com/"
@@ -295,7 +295,7 @@ export default function PortfolioWebsite() {
               <ProjectCard 
                 title="Fitness Tracker"
                 category="Web Application"
-                image="src/assets/img/cyjust.PNG"
+                image="src/img/cyjust.PNG"
                 description="A fitness tracking application with user authentication and data visualization."
                 techStack={["HTML", "CSS", "Bootstrap"]}
                 liveLink="https://www.cyjustdeals.com/"
