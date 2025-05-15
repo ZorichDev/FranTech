@@ -9,7 +9,7 @@ import certificate from "./img/TECH ACADEMY CERTIFICATE (Mgbadigha Francis China
 import ecommerce from "./img/E-Commerce.PNG";
 import pospadi from "./img/pospadi.PNG";
 import betahomes from "./img/betahomes.PNG";
-import freelancer from "./img/freelancer.PNG";
+import freelancer from "./img/franzor.PNG";
 import IT from "./img/IT.PNG";
 import cyjust from "./img/cyjust.PNG";
 
