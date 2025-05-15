@@ -6,6 +6,8 @@ import { IoMailUnread } from "react-icons/io5";
 import profileIMG from "./img/techboy.jpg"; 
 import Resume from "./img/franzor cv.pdf";
 import certificate from "./img/TECH ACADEMY CERTIFICATE (Mgbadigha Francis Chinazor).pdf";
+import ecommerce from "./img/E-Commerce.PNG";
+import pospadi from "./img/pospadi.PNG";
 
 // Main App Component
 export default function PortfolioWebsite() {
@@ -253,7 +255,7 @@ export default function PortfolioWebsite() {
               <ProjectCard 
                 title="E-Commerce Platform"
                 category="Web Development"
-                image="src/img/E-Commerce.PNG"
+                image={ecommerce}
                 description="A full-featured e-commerce platform built with React, Node.js, and MongoDB."
                 techStack={["React", "Node.js", "MongoDB", "Express"]}
                 liveLink="https://paintlifeltd.com/"
@@ -262,7 +264,7 @@ export default function PortfolioWebsite() {
               <ProjectCard 
                 title="FinTech"
                 category="Full Stack"
-                image="src/img/pospadi.PNG"
+                image={pospadi}
                 description="A responsive Pos FinTech project."
                 techStack={["React", "Chakra ui",]}
                 liveLink="https://pospadi.com.ng"
