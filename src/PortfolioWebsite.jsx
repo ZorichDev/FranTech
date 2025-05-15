@@ -3,6 +3,7 @@ import { FaGithub , FaLinkedinIn, FaExternalLinkSquareAlt, FaDownload } from 're
 import { BsMenuUp } from "react-icons/bs";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoMailUnread } from "react-icons/io5";
+import profileIMG from "./img/techboy.jpg"; 
 
 // Main App Component
 export default function PortfolioWebsite() {
@@ -150,7 +151,7 @@ export default function PortfolioWebsite() {
                 <div className="relative">
                   <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-red-600 shadow-xl mx-auto">
                     <img 
-                      src="src/img/tech boy.jpg" 
+                      src={profileIMG}
                       alt="Profile" 
                       className="w-full h-full object-cover"
                     />
