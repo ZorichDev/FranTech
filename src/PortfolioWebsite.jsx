@@ -8,6 +8,10 @@ import Resume from "./img/franzor cv.pdf";
 import certificate from "./img/TECH ACADEMY CERTIFICATE (Mgbadigha Francis Chinazor).pdf";
 import ecommerce from "./img/E-Commerce.PNG";
 import pospadi from "./img/pospadi.PNG";
+import betahomes from "./img/betahomes.PNG";
+import freelancer from "./img/freelancer.PNG";
+import IT from "./img/IT.PNG";
+import cyjust from "./img/cyjust.PNG";
 
 // Main App Component
 export default function PortfolioWebsite() {
@@ -273,7 +277,7 @@ export default function PortfolioWebsite() {
               <ProjectCard 
                 title="Task Management App"
                 category="Web Application"
-                image="src/img/betahomes.PNG"
+                image={betahomes}
                 description="A cross-platform task management web app built with Tailwind."
                 techStack={["React ", "Tailwind", ]}
                 liveLink="https://betamerchanthomesandmore.com/"
@@ -282,7 +286,7 @@ export default function PortfolioWebsite() {
               <ProjectCard 
                 title="Personal Finance Dashboard"
                 category="Web Application"
-                image="src/img/franzor.PNG"
+                image={freelancer}
                 description="A dashboard for tracking personal finances with data visualization."
                 techStack={["React", "Chakra ui", "Chart.js"]}
                 liveLink="https://freelancer-dashboard5.netlify.app/profile"
@@ -291,7 +295,7 @@ export default function PortfolioWebsite() {
               <ProjectCard 
                 title="Weather Forecast App"
                 category="web Application"
-                image="src/img/IT.PNG"
+                image={IT}
                 description="A weather forecast application that utilizes multiple weather APIs."
                 techStack={["Html", "CSS", "EmailJS", ]}
                 liveLink="https://iprolance-solutions.cyjustdeals.com/"
@@ -300,7 +304,7 @@ export default function PortfolioWebsite() {
               <ProjectCard 
                 title="Fitness Tracker"
                 category="Web Application"
-                image="src/img/cyjust.PNG"
+                image={cyjust}
                 description="A fitness tracking application with user authentication and data visualization."
                 techStack={["HTML", "CSS", "Bootstrap"]}
                 liveLink="https://www.cyjustdeals.com/"
