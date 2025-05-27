@@ -209,7 +209,7 @@ export default function PortfolioWebsite() {
                 <h3 className="text-2xl font-bold mb-4 text-red-600">Education & Experience</h3>
                 <div className="space-y-6">
                   <TimelineItem 
-                    year="2025presert"
+                    year="2025 present"
                     title="Senior Frontend Developer"
                     company="Rpro-Group limited."
                     description="Leading frontend development for enterprise applications."
