@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   FaGithub, 
   FaLinkedinIn, 
@@ -8,22 +8,28 @@ import {
   FaUsers,
   FaCode,
   FaServer,
-  FaCheckCircle  // This is the correct import
+  FaCheckCircle,
+  FaReact,
+  FaJs,
+  FaCss3Alt,
+  FaWhatsapp // Added WhatsApp icon
 } from 'react-icons/fa';
 import { BsMenuUp, BsArrowUp } from "react-icons/bs";
 import { FaXTwitter } from "react-icons/fa6";
 import { 
   IoMailUnread, 
   IoStatsChart, 
-  IoCalendar, 
   IoAnalytics, 
-  IoMail 
+  IoMail,
+  IoLogoJavascript,
+  IoColorPalette
 } from "react-icons/io5";
 import { 
   MdDashboard, 
   MdShowChart, 
   MdTrendingUp, 
-  MdVerifiedUser 
+  MdVerifiedUser,
+  MdDesignServices
 } from "react-icons/md";
 import emailjs from 'emailjs-com';
 import profileIMG from "./img/techboy.jpg"; 
@@ -39,7 +45,7 @@ import rprogropmycer from "./img/rprogropmycer.pdf";
 import internpulsecer from "./img/internpulsecer.png";
 
 // Production Dashboard Component
-export default function ProductionPortfolio() {
+export default function FrontendDeveloperPortfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [user, setUser] = useState(null);
@@ -76,12 +82,12 @@ export default function ProductionPortfolio() {
   useEffect(() => {
     // Mock analytics data
     const mockData = [
-      { month: 'Jan', projects: 12, clients: 8, revenue: 45000, performance: 85 },
-      { month: 'Feb', projects: 15, clients: 12, revenue: 58000, performance: 88 },
-      { month: 'Mar', projects: 18, clients: 15, revenue: 72000, performance: 92 },
-      { month: 'Apr', projects: 22, clients: 18, revenue: 88000, performance: 89 },
-      { month: 'May', projects: 28, clients: 24, revenue: 105000, performance: 94 },
-      { month: 'Jun', projects: 32, clients: 28, revenue: 125000, performance: 96 }
+      { month: 'Jan', projects: 12, clients: 8, satisfaction: 85 },
+      { month: 'Feb', projects: 15, clients: 12, satisfaction: 88 },
+      { month: 'Mar', projects: 18, clients: 15, satisfaction: 92 },
+      { month: 'Apr', projects: 22, clients: 18, satisfaction: 89 },
+      { month: 'May', projects: 28, clients: 24, satisfaction: 94 },
+      { month: 'Jun', projects: 32, clients: 28, satisfaction: 96 }
     ];
     setAnalyticsData(mockData);
   }, []);
@@ -129,7 +135,7 @@ export default function ProductionPortfolio() {
       <header className="fixed w-full bg-black/95 backdrop-blur-md border-b border-gray-800 z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="text-xl font-bold tracking-tighter">
-            <span className="text-red-600">Fran</span>Tech<span className="text-red-600">Pro</span>
+            <span className="text-red-600">Fran</span>Tech<span className="text-red-600">Dev</span>
           </div>
           
           {/* Desktop Navigation */}
@@ -224,12 +230,12 @@ export default function ProductionPortfolio() {
         <AuthModal onClose={() => setShowAuth(false)} onLogin={handleLogin} loading={loading} />
       )}
 
-      {/* Hero Section */}
+      {/* Hero Section - Frontend Focus */}
       <section 
         id="home" 
         className="min-h-screen flex items-center pt-20 pb-16 px-6 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 to-blue-500/10"></div>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-red-900/20 via-transparent to-transparent"></div>
         
         <div className="container mx-auto relative z-10">
@@ -239,70 +245,92 @@ export default function ProductionPortfolio() {
               <div className="space-y-6">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-500/10 border border-red-500/20 rounded-full text-red-400 text-sm">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  Available for projects
+                  Open for Frontend Opportunities
                 </div>
                 
                 <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
-                  <span className="block text-white mb-2">Enterprise</span>
-                  <span className="bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
-                    Solutions Architect
+                  <span className="block text-white mb-2">Crafting Digital</span>
+                  <span className="bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 bg-clip-text text-transparent">
+                    Experiences
                   </span>
                 </h1>
                 
                 <p className="text-xl md:text-2xl text-gray-300 max-w-lg">
-                  Building production-ready applications with 
-                  <span className="text-red-400 font-semibold"> enterprise-grade architecture</span> and modern technologies.
+                  I'm <span className="text-red-400 font-semibold">Francis Chinazor</span>, a passionate Frontend Developer specializing in 
+                  <span className="text-blue-400 font-semibold"> React</span>, 
+                  <span className="text-yellow-400 font-semibold"> JavaScript</span>, and creating
+                  <span className="text-green-400 font-semibold"> pixel-perfect UIs</span>.
                 </p>
                 
-                {/* KPIs */}
+                {/* Frontend KPIs */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-4">
                   <KPICard 
-                    icon={<MdVerifiedUser className="text-green-400" size={24} />}
-                    value="150+"
-                    label="Projects"
+                    icon={<FaReact className="text-cyan-400" size={24} />}
+                    value="45+"
+                    label="React Projects"
                     trend="+12%"
                   />
                   <KPICard 
-                    icon={<FaUsers className="text-blue-400" size={24} />}
-                    value="80+"
-                    label="Clients"
+                    icon={<IoLogoJavascript className="text-yellow-400" size={24} />}
+                    value="98%"
+                    label="Code Quality"
+                    trend="+5%"
+                  />
+                  <KPICard 
+                    icon={<MdDesignServices className="text-purple-400" size={24} />}
+                    value="50+"
+                    label="UI Designs"
                     trend="+8%"
                   />
                   <KPICard 
-                    icon={<FaCode className="text-purple-400" size={24} />}
-                    value="500K+"
-                    label="Lines of Code"
-                    trend="+25%"
-                  />
-                  <KPICard 
-                    icon={<FaServer className="text-red-400" size={24} />}
-                    value="99.9%"
-                    label="Uptime"
-                    trend="Stable"
+                    icon={<FaUsers className="text-green-400" size={24} />}
+                    value="32"
+                    label="Happy Clients"
+                    trend="+3"
                   />
                 </div>
                 
                 {/* Action Buttons */}
                 <div className="flex flex-wrap justify-center lg:justify-start gap-4 pt-4">
                   <button 
-                    onClick={() => scrollToSection('contact')}
-                    className="group px-8 py-4 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl font-semibold
-                              hover:from-red-600 hover:to-red-700 transform hover:scale-105 transition-all duration-300
+                    onClick={() => scrollToSection('projects')}
+                    className="group px-8 py-4 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-xl font-semibold
+                              hover:from-red-600 hover:to-orange-600 transform hover:scale-105 transition-all duration-300
                               shadow-lg hover:shadow-xl hover:shadow-red-500/25"
                   >
                     <span className="flex items-center gap-2">
-                      Start a Project
+                      View My Work
                       <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
                     </span>
                   </button>
                   
-                  <button 
-                    onClick={() => scrollToSection('dashboard')}
+                  <a
+                    href={Resume} 
+                    download
                     className="group px-8 py-4 border-2 border-gray-700 text-gray-300 rounded-xl font-semibold
-                              hover:border-red-500 hover:text-white transition-all duration-300"
+                              hover:border-red-500 hover:text-white transition-all duration-300 flex items-center gap-3"
                   >
-                    View Analytics
-                  </button>
+                    <FaDownload size={18} className="group-hover:animate-bounce" />
+                    Download CV
+                  </a>
+                </div>
+                
+                {/* Tech Stack Badges */}
+                <div className="flex flex-wrap gap-3 pt-4">
+                  {[
+                    { name: "React", color: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20" },
+                    { name: "JavaScript", color: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20" },
+                    { name: "TypeScript", color: "bg-blue-500/10 text-blue-400 border-blue-500/20" },
+                    { name: "Tailwind CSS", color: "bg-teal-500/10 text-teal-400 border-teal-500/20" },
+                    { name: "Next.js", color: "bg-gray-500/10 text-gray-300 border-gray-500/20" },
+                  ].map((tech, index) => (
+                    <span 
+                      key={index}
+                      className={`px-3 py-1 rounded-full text-sm font-medium border ${tech.color}`}
+                    >
+                      {tech.name}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -312,30 +340,33 @@ export default function ProductionPortfolio() {
               <div className="relative">
                 {/* Main Profile Image */}
                 <div className="relative w-72 h-72 md:w-96 md:h-96">
-                  <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-600 rounded-full blur-xl opacity-20 animate-pulse"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-blue-500 rounded-full blur-xl opacity-20 animate-pulse"></div>
                   <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-red-500 shadow-2xl">
                     <img 
                       src={profileIMG}
-                      alt="Francis Chinazor - Solutions Architect" 
+                      alt="Francis Chinazor - Frontend Developer" 
                       className="w-full h-full object-cover"
                     />
                   </div>
                 </div>
                 
                 {/* Status Card */}
-                <div className="absolute -bottom-6 -right-6 bg-gray-800/90 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-gray-700">
+                <div className="absolute -bottom-6 -right-6 bg-gray-800/90 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-gray-700 max-w-xs">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                    <p className="text-sm font-medium text-gray-300">Currently Available</p>
+                    <p className="text-sm font-medium text-gray-300">Currently Building</p>
                   </div>
                   <a 
                     href="https://tekkbridge.vercel.app" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-red-400 font-bold text-lg hover:text-red-300 transition-colors duration-300"
+                    className="text-red-400 font-bold text-lg hover:text-red-300 transition-colors duration-300 hover:underline"
                   >
-                    View Live Projects →
+                    Interactive Dashboard
                   </a>
+                  <p className="text-sm text-gray-400 mt-2">
+                    React • Tailwind • Recharts • API Integration
+                  </p>
                 </div>
               </div>
             </div>
@@ -343,47 +374,47 @@ export default function ProductionPortfolio() {
         </div>
       </section>
 
-      {/* Dashboard Section */}
+      {/* Dashboard Section - Frontend Analytics */}
       <section 
         id="dashboard" 
         className="py-24 bg-gradient-to-b from-gray-900 to-slate-900"
       >
         <div className="container mx-auto px-6">
           <SectionHeader 
-            title="Performance Dashboard" 
-            subtitle="Real-time metrics and analytics"
+            title="Development Analytics" 
+            subtitle="Track my frontend development progress"
             className="text-center mb-16" 
           />
           
           {/* Dashboard Stats */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <StatCard 
-              title="Total Projects"
+              title="Completed Projects"
               value="45"
               change="+12"
               icon={<MdShowChart className="text-green-400" size={24} />}
               color="green"
             />
             <StatCard 
-              title="Active Clients"
-              value="28"
-              change="+3"
+              title="Client Satisfaction"
+              value="98%"
+              change="+2%"
               icon={<FaUsers className="text-blue-400" size={24} />}
               color="blue"
             />
             <StatCard 
-              title="Revenue Growth"
-              value="$125K"
-              change="+25%"
-              icon={<MdTrendingUp className="text-red-400" size={24} />}
-              color="red"
-            />
-            <StatCard 
-              title="Performance Score"
+              title="Code Quality"
               value="96/100"
               change="+4"
-              icon={<IoAnalytics className="text-purple-400" size={24} />}
+              icon={<FaCode className="text-purple-400" size={24} />}
               color="purple"
+            />
+            <StatCard 
+              title="Response Time"
+              value="< 24h"
+              change="-2h"
+              icon={<IoAnalytics className="text-red-400" size={24} />}
+              color="red"
             />
           </div>
           
@@ -392,7 +423,7 @@ export default function ProductionPortfolio() {
             <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700">
               <h3 className="text-xl font-bold mb-6 flex items-center gap-2 text-white">
                 <FaChartLine className="text-red-400" />
-                Project Growth Trends
+                Project Timeline
               </h3>
               <div className="h-64">
                 <SimpleChart data={analyticsData} dataKey="projects" color="#ef4444" />
@@ -402,40 +433,43 @@ export default function ProductionPortfolio() {
             <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700">
               <h3 className="text-xl font-bold mb-6 flex items-center gap-2 text-white">
                 <IoStatsChart className="text-blue-400" />
-                Revenue Analytics
+                Client Satisfaction
               </h3>
               <div className="h-64">
-                <SimpleChart data={analyticsData} dataKey="revenue" color="#3b82f6" />
+                <SimpleChart data={analyticsData} dataKey="satisfaction" color="#3b82f6" />
               </div>
             </div>
           </div>
           
-          {/* Performance Metrics */}
-          <div className="mt-12 grid md:grid-cols-3 gap-6">
-            {[
-              { name: "React/Next.js", level: 95, projects: 45 },
-              { name: "TypeScript", level: 90, projects: 38 },
-              { name: "Node.js", level: 85, projects: 32 },
-              { name: "UI/UX Design", level: 88, projects: 40 },
-              { name: "Cloud (AWS/Azure)", level: 80, projects: 25 },
-              { name: "Performance", level: 92, projects: 42 }
-            ].map((skill, i) => (
-              <div key={i} className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h4 className="font-bold text-white">{skill.name}</h4>
-                    <p className="text-sm text-gray-400">{skill.projects} projects</p>
+          {/* Frontend Skills Metrics */}
+          <div className="mt-12">
+            <h3 className="text-2xl font-bold mb-6 text-white text-center">Frontend Expertise</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                { name: "React Development", level: 95, description: "Hooks, Context, Custom Hooks" },
+                { name: "JavaScript/TypeScript", level: 90, description: "ES6+, Modern Patterns" },
+                { name: "UI/UX Design", level: 88, description: "Figma, Responsive Design" },
+                { name: "CSS/Tailwind", level: 92, description: "Animations, Responsive" },
+                { name: "API Integration", level: 85, description: "REST, GraphQL, WebSocket" },
+                { name: "Performance", level: 90, description: "Optimization, Lighthouse" }
+              ].map((skill, i) => (
+                <div key={i} className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <h4 className="font-bold text-white">{skill.name}</h4>
+                      <p className="text-sm text-gray-400">{skill.description}</p>
+                    </div>
+                    <span className="text-2xl font-bold text-red-400">{skill.level}%</span>
                   </div>
-                  <span className="text-2xl font-bold text-red-400">{skill.level}%</span>
+                  <div className="w-full bg-gray-700 rounded-full h-2">
+                    <div 
+                      className="bg-gradient-to-r from-red-500 to-orange-500 h-2 rounded-full transition-all duration-1000"
+                      style={{ width: `${skill.level}%` }}
+                    ></div>
+                  </div>
                 </div>
-                <div className="w-full bg-gray-700 rounded-full h-2">
-                  <div 
-                    className="bg-gradient-to-r from-red-500 to-red-600 h-2 rounded-full transition-all duration-1000"
-                    style={{ width: `${skill.level}%` }}
-                  ></div>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -447,69 +481,69 @@ export default function ProductionPortfolio() {
       >
         <div className="container mx-auto px-6">
           <SectionHeader 
-            title="Production Projects" 
-            subtitle="Enterprise-grade applications with real impact"
+            title="Frontend Projects" 
+            subtitle="Interactive web applications and dashboards"
             className="text-center mb-16" 
           />
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <ProjectCard 
               title="E-Commerce Platform"
-              category="Full Stack"
+              category="React Dashboard"
               image={ecommerce}
-              description="Enterprise e-commerce solution with real-time inventory and payment processing"
-              techStack={["React", "Node.js", "MongoDB", "Stripe"]}
-              metrics={{ users: "50K+", revenue: "$2M+", uptime: "99.9%" }}
+              description="Modern e-commerce interface with product filtering and cart functionality"
+              techStack={["React", "Context API", "Tailwind", "Stripe"]}
+              metrics={{ users: "50K+", rating: "4.8/5", speed: "95%" }}
               liveLink="https://paintlifeltd.com/"
               repoLink="https://github.com/ZorichDev"
             />
             <ProjectCard 
               title="FinTech Dashboard"
-              category="Finance"
+              category="Real-time UI"
               image={pospadi}
-              description="Real-time financial analytics and transaction monitoring platform"
+              description="Interactive financial dashboard with real-time charts and data visualization"
               techStack={["React", "TypeScript", "Chart.js", "WebSocket"]}
-              metrics={{ transactions: "1M+", users: "25K", accuracy: "99.99%" }}
+              metrics={{ accuracy: "99.9%", speed: "0.2s", users: "25K" }}
               liveLink="https://pospadi.com.ng"
               repoLink="https://github.com/InternPulse-Frontend-March-2025"
             />
             <ProjectCard 
               title="Real Estate Platform"
-              category="PropTech"
+              category="Responsive Web App"
               image={betahomes}
-              description="Modern property listing and management system with virtual tours"
-              techStack={["React", "Tailwind", "Firebase", "3D.js"]}
-              metrics={{ properties: "5K+", views: "500K", sales: "$50M+" }}
+              description="Property listing platform with interactive maps and virtual tours"
+              techStack={["React", "Tailwind", "Google Maps", "3D.js"]}
+              metrics={{ properties: "5K+", views: "500K", mobile: "100%" }}
               liveLink="https://betamerchanthomesandmore.com/"
               repoLink="https://github.com/ZorichDev"
             />
             <ProjectCard 
               title="IT Solutions Hub"
-              category="Enterprise"
+              category="Admin Dashboard"
               image={IT}
-              description="Comprehensive IT service management and ticketing system"
+              description="Service management dashboard with ticket system and analytics"
               techStack={["React", "Node.js", "PostgreSQL", "Redis"]}
-              metrics={{ tickets: "100K+", clients: "200+", satisfaction: "98%" }}
+              metrics={{ tickets: "100K+", clients: "200+", uptime: "99.9%" }}
               liveLink="https://iprolance-solutions.cyjustdeals.com/"
               repoLink="https://github.com/ZorichDev"
             />
             <ProjectCard 
               title="Finance Dashboard"
-              category="Web App"
+              category="Data Visualization"
               image={freelancer}
-              description="Advanced dashboard for financial tracking and analytics"
-              techStack={["React", "Chakra UI", "Chart.js", "API"]}
-              metrics={{ users: "10K+", accuracy: "99.5%", speed: "0.2s" }}
+              description="Personal finance tracker with interactive charts and budgeting tools"
+              techStack={["React", "Chakra UI", "Chart.js", "LocalStorage"]}
+              metrics={{ users: "10K+", rating: "4.7/5", load: "0.3s" }}
               liveLink="https://freelancer-dashboard5.netlify.app/profile"
               repoLink="https://github.com/ZorichDev/Freelancer-Dashboard5"
             />
             <ProjectCard 
               title="Branding Platform"
-              category="E-commerce"
+              category="E-commerce UI"
               image={cyjust}
-              description="Digital branding and e-commerce solution"
+              description="Modern e-commerce interface with product catalog and checkout"
               techStack={["HTML", "CSS", "Bootstrap", "JavaScript"]}
-              metrics={{ visitors: "100K+", sales: "$500K+", rating: "4.8" }}
+              metrics={{ visitors: "100K+", sales: "$500K+", mobile: "95%" }}
               liveLink="https://www.cyjustdeals.com/"
               repoLink="https://github.com/Efezino218/cyjust_deals"
             />
@@ -533,35 +567,48 @@ export default function ProductionPortfolio() {
         </div>
       </section>
 
-      {/* Skills Section */}
+      {/* Skills Section - Frontend Focus */}
       <section 
         id="skills" 
         className="py-24 bg-gradient-to-b from-gray-900 to-slate-900"
       >
         <div className="container mx-auto px-6">
           <SectionHeader 
-            title="Technical Stack" 
-            subtitle="Enterprise-grade technologies and frameworks"
+            title="Frontend Stack" 
+            subtitle="Technologies I use to build modern web applications"
             className="text-center mb-16" 
           />
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: "⚛️", name: "React/Next.js", desc: "Advanced React patterns, SSR, SSG" },
-              { icon: "📘", name: "TypeScript", desc: "Type-safe development at scale" },
-              { icon: "🎨", name: "Tailwind CSS", desc: "Utility-first CSS framework" },
-              { icon: "🚀", name: "Node.js", desc: "Backend services & APIs" },
-              { icon: "💾", name: "MongoDB", desc: "NoSQL database management" },
-              { icon: "☁️", name: "AWS/Azure", desc: "Cloud deployment & services" },
-              { icon: "🔧", name: "Git/CI/CD", desc: "DevOps & automation pipelines" },
-              { icon: "📱", name: "Responsive Design", desc: "Mobile-first approach" }
+              { icon: <FaReact className="text-cyan-400" size={32} />, name: "React Ecosystem", desc: "Hooks, Context, Redux, Next.js" },
+              { icon: <IoLogoJavascript className="text-yellow-400" size={32} />, name: "JavaScript", desc: "ES6+, TypeScript, Modern Patterns" },
+              { icon: <FaCss3Alt className="text-blue-400" size={32} />, name: "Styling", desc: "Tailwind, CSS3, SASS, Styled Components" },
+              { icon: <IoColorPalette className="text-purple-400" size={32} />, name: "UI/UX Design", desc: "Figma, Responsive Design, Accessibility" },
+              { icon: <MdDashboard className="text-green-400" size={32} />, name: "State Management", desc: "Context API, Redux, Zustand" },
+              { icon: <FaChartLine className="text-red-400" size={32} />, name: "Data Visualization", desc: "Chart.js, D3.js, Recharts" },
+              { icon: <FaServer className="text-orange-400" size={32} />, name: "API Integration", desc: "REST, GraphQL, WebSocket, Axios" },
+              { icon: <MdVerifiedUser className="text-teal-400" size={32} />, name: "Performance", desc: "Lighthouse, Bundle Optimization" }
             ].map((skill, i) => (
-              <div key={i} className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-red-500 transition-all group">
-                <div className="text-4xl mb-3">{skill.icon}</div>
+              <div key={i} className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-red-500 transition-all group hover:transform hover:scale-105">
+                <div className="mb-4">{skill.icon}</div>
                 <h3 className="font-bold text-white mb-2">{skill.name}</h3>
                 <p className="text-sm text-gray-400">{skill.desc}</p>
               </div>
             ))}
+          </div>
+          
+          {/* Additional Skills */}
+          <div className="mt-12 bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-2xl p-8">
+            <h3 className="text-2xl font-bold mb-6 text-white">Additional Skills</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {["Git/GitHub", "Responsive Design", "Web Performance", "SEO", "Testing", "Dev Tools", "CI/CD", "Agile/Scrum"].map((skill, index) => (
+                <div key={index} className="flex items-center gap-2 p-3 bg-gray-800/50 rounded-lg">
+                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                  <span className="text-gray-300">{skill}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -574,13 +621,13 @@ export default function ProductionPortfolio() {
         <div className="container mx-auto px-6">
           <SectionHeader 
             title="Let's Build Together" 
-            subtitle="Ready to bring your project to production"
+            subtitle="Have a project in mind? Let's create something amazing"
             className="text-center mb-16" 
           />
           
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
-              <h3 className="text-2xl font-bold mb-6 text-white">Connect With Me</h3>
+              <h3 className="text-2xl font-bold mb-6 text-white">Get In Touch</h3>
               
               <div className="space-y-6 mb-8">
                 <ContactInfo 
@@ -591,29 +638,34 @@ export default function ProductionPortfolio() {
                 />
                 
                 <ContactInfo 
-                  icon={<FaLinkedinIn className="text-red-400" size={24} />}
+                  icon={<FaLinkedinIn className="text-blue-400" size={24} />}
                   title="LinkedIn"
                   content="Francis Chinazor"
                   href="https://www.linkedin.com/in/francis-chinazor-081b8933b"
                 />
                 
                 <ContactInfo 
-                  icon={<FaGithub className="text-red-400" size={24} />}
+                  icon={<FaGithub className="text-gray-300" size={24} />}
                   title="GitHub"
                   content="@ZorichDev"
                   href="https://github.com/ZorichDev"
                 />
               </div>
               
-              <div className="bg-gradient-to-r from-red-900/20 to-transparent border border-red-500/20 rounded-xl p-6">
+              <div className="bg-gradient-to-r from-red-900/20 to-blue-900/20 border border-red-500/20 rounded-xl p-6">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                   <h4 className="font-bold text-white">Currently Available</h4>
                 </div>
                 <p className="text-gray-400 text-sm">
-                  Open to full-time opportunities and freelance projects. 
-                  Typical response time: 24 hours.
+                  Open to frontend developer roles, freelance projects, and collaborations. 
+                  I'm passionate about creating beautiful, functional user interfaces.
                 </p>
+                <div className="flex gap-2 mt-4">
+                  <span className="px-3 py-1 bg-red-500/10 text-red-400 text-xs rounded-full">Remote</span>
+                  <span className="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs rounded-full">Full-time</span>
+                  <span className="px-3 py-1 bg-green-500/10 text-green-400 text-xs rounded-full">Freelance</span>
+                </div>
               </div>
             </div>
             
@@ -632,10 +684,10 @@ export default function ProductionPortfolio() {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <div className="text-2xl font-bold mb-4">
-                <span className="text-red-600">Fran</span>Tech<span className="text-red-600">Pro</span>
+                <span className="text-red-600">Fran</span>Tech<span className="text-red-600">Dev</span>
               </div>
               <p className="text-gray-400 text-sm mb-4">
-                Building production-ready applications with enterprise-grade architecture and modern technologies.
+                Frontend Developer specializing in React, JavaScript, and creating exceptional user experiences.
               </p>
               <div className="flex gap-3">
                 <a href="https://github.com/ZorichDev" className="p-2 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors">
@@ -668,14 +720,14 @@ export default function ProductionPortfolio() {
             <div>
               <h4 className="font-bold mb-4 text-white">Resources</h4>
               <div className="space-y-2">
-                <a href={Resume} download className="block text-gray-400 hover:text-red-400 transition-colors text-sm">
-                  Download Resume
+                <a href={Resume} download className="block text-gray-400 hover:text-red-400 transition-colors text-sm flex items-center gap-2">
+                  <FaDownload size={14} /> Download Resume
                 </a>
-                <a href={certificate} download className="block text-gray-400 hover:text-red-400 transition-colors text-sm">
-                  View Certificates
+                <a href={certificate} download className="block text-gray-400 hover:text-red-400 transition-colors text-sm flex items-center gap-2">
+                  <FaDownload size={14} /> View Certificates
                 </a>
-                <a href="https://github.com/ZorichDev" target="_blank" rel="noopener noreferrer" className="block text-gray-400 hover:text-red-400 transition-colors text-sm">
-                  GitHub Portfolio
+                <a href="https://github.com/ZorichDev" target="_blank" rel="noopener noreferrer" className="block text-gray-400 hover:text-red-400 transition-colors text-sm flex items-center gap-2">
+                  <FaGithub size={14} /> GitHub Portfolio
                 </a>
               </div>
             </div>
@@ -686,17 +738,40 @@ export default function ProductionPortfolio() {
               © {new Date().getFullYear()} Francis Chinazor. All rights reserved.
             </p>
             <p className="text-gray-500 text-sm">
-              Built with React • Tailwind CSS • Production Architecture
+              Built with ❤️ using React & Tailwind CSS
             </p>
           </div>
         </div>
       </footer>
 
+      {/* Floating WhatsApp Button */}
+      <a
+        href="https://wa.me/2349069246577"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-24 right-4 md:right-8 z-40 group"
+        aria-label="Chat on WhatsApp"
+      >
+        <div className="relative">
+          {/* Glowing effect */}
+          <div className="absolute -inset-3 bg-green-500 rounded-full blur opacity-70 animate-pulse"></div>
+          {/* Main button */}
+          <div className="relative w-12 h-12 md:w-14 md:h-14 bg-green-500 rounded-full flex items-center justify-center shadow-xl hover:bg-green-600 hover:scale-110 transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-green-500/50">
+            <FaWhatsapp size={24} className="md:size-28 text-white" />
+          </div>
+          {/* Tooltip - hidden on mobile, shown on desktop */}
+          <div className="hidden md:block absolute right-16 top-1/2 -translate-y-1/2 bg-gray-800 text-white text-sm py-2 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap border border-gray-700">
+            Chat on WhatsApp
+            <div className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1 w-2 h-2 bg-gray-800 rotate-45 border-r border-b border-gray-700"></div>
+          </div>
+        </div>
+      </a>
+
       {/* Scroll to Top Button */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 p-4 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 rounded-full shadow-lg transition-all z-40 group"
+          className="fixed bottom-8 right-8 p-4 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 rounded-full shadow-lg transition-all z-40 group"
           aria-label="Scroll to top"
         >
           <BsArrowUp size={24} className="group-hover:-translate-y-1 transition-transform" />
@@ -768,7 +843,7 @@ function AuthModal({ onClose, onLogin, loading }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg font-semibold hover:from-red-600 hover:to-red-700 transition-all disabled:opacity-50"
+            className="w-full py-3 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-lg font-semibold hover:from-red-600 hover:to-orange-600 transition-all disabled:opacity-50"
           >
             {loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Sign Up')}
           </button>
@@ -854,20 +929,20 @@ function SimpleChart({ data, dataKey, color }) {
 // Project Card Component
 function ProjectCard({ title, category, image, description, techStack, metrics, liveLink, repoLink }) {
   return (
-    <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden hover:border-red-500 transition-all group">
+    <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden hover:border-red-500 transition-all group hover:transform hover:scale-[1.02]">
       <div className="relative h-48 overflow-hidden">
         <img 
           src={image} 
           alt={title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
-        <div className="absolute top-4 left-4 px-3 py-1 bg-red-600 rounded-full text-xs font-semibold">
+        <div className="absolute top-4 left-4 px-3 py-1 bg-gradient-to-r from-red-500 to-orange-500 rounded-full text-xs font-semibold">
           {category}
         </div>
       </div>
       
       <div className="p-6">
-        <h3 className="text-xl font-bold mb-2 text-white">{title}</h3>
+        <h3 className="text-xl font-bold mb-2 text-white group-hover:text-red-400 transition-colors">{title}</h3>
         <p className="text-gray-400 text-sm mb-4">{description}</p>
         
         <div className="grid grid-cols-3 gap-4 mb-4 pb-4 border-b border-gray-700">
@@ -892,7 +967,7 @@ function ProjectCard({ title, category, image, description, techStack, metrics, 
             href={liveLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-center text-sm font-semibold transition-colors flex items-center justify-center gap-2"
+            className="flex-1 py-2 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 rounded-lg text-center text-sm font-semibold transition-colors flex items-center justify-center gap-2"
           >
             View Live <FaExternalLinkSquareAlt size={14} />
           </a>
@@ -917,7 +992,7 @@ function SectionHeader({ title, subtitle, className }) {
       <h2 className="text-4xl font-bold mb-4 text-white">{title}</h2>
       <p className="text-gray-400">{subtitle}</p>
       <div className="mt-4 flex justify-center">
-        <div className="w-16 h-1 bg-gradient-to-r from-red-500 to-red-600 rounded"></div>
+        <div className="w-16 h-1 bg-gradient-to-r from-red-500 to-orange-500 rounded"></div>
       </div>
     </div>
   );
@@ -925,7 +1000,7 @@ function SectionHeader({ title, subtitle, className }) {
 
 function KPICard({ icon, value, label, trend }) {
   return (
-    <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-4">
+    <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-4 hover:border-red-500 transition-colors">
       <div className="flex items-center justify-between mb-2">
         {icon}
         <span className="text-sm font-medium text-green-400">{trend}</span>
@@ -938,19 +1013,16 @@ function KPICard({ icon, value, label, trend }) {
 
 function StatCard({ title, value, change, icon, color }) {
   const colorClasses = {
-    green: 'text-green-400',
-    blue: 'text-blue-400',
-    red: 'text-red-400',
-    purple: 'text-purple-400'
+    green: 'bg-green-900/20 border-green-500/20 text-green-400',
+    blue: 'bg-blue-900/20 border-blue-500/20 text-blue-400',
+    red: 'bg-red-900/20 border-red-500/20 text-red-400',
+    purple: 'bg-purple-900/20 border-purple-500/20 text-purple-400'
   };
 
   return (
-    <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
+    <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-red-500 transition-colors">
       <div className="flex items-center justify-between mb-4">
-        <div className={`p-3 rounded-lg ${color === 'green' ? 'bg-green-900/20 border border-green-500/20' : 
-                                        color === 'blue' ? 'bg-blue-900/20 border border-blue-500/20' :
-                                        color === 'red' ? 'bg-red-900/20 border border-red-500/20' :
-                                        'bg-purple-900/20 border border-purple-500/20'}`}>
+        <div className={`p-3 rounded-lg border ${colorClasses[color]}`}>
           {icon}
         </div>
         <span className="text-sm font-medium text-green-400">{change}</span>
@@ -1002,41 +1074,52 @@ function ContactForm() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Show sending status
     setSubmitResult({ show: true, success: false, message: 'Sending message...' });
 
     try {
-      // Using EmailJS v3
+      const now = new Date();
+      const date = now.toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      const time = now.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      });
+
+      const templateParams = {
+        to_email: 'francis1chinazor@gmail.com',
+        to_name: 'Francis Chinazor',
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject || 'Portfolio Inquiry',
+        message: formData.message,
+        date: date,
+        time: time
+      };
+
       const response = await emailjs.send(
-        'service_ptzp7rd', // Your Service ID
-        'template_uvkbxrd', // Your Template ID
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-          to_name: 'Francis Chinazor',
-          to_email: 'francis1chinazor@gmail.com'
-        },
-        '3PD5AyCly9DCyS4u1' // Your User ID (Public Key)
+        'service_ptzp7rd',
+        'template_uvkbxrd',
+        templateParams,
+        '3PD5AyCly9DCyS4u1'
       );
 
       if (response.status === 200) {
         setSubmitResult({ 
           show: true, 
           success: true, 
-          message: '✓ Message sent successfully! I\'ll get back to you soon.' 
+          message: '✓ Message sent successfully!' 
         });
         setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        throw new Error('Failed to send');
       }
     } catch (error) {
-      console.error('EmailJS Error:', error);
       setSubmitResult({ 
         show: true, 
         success: false, 
-        message: '✗ Failed to send message. Please try emailing directly at francis1chinazor@gmail.com' 
+        message: '✗ Failed to send. Please email: francis1chinazor@gmail.com' 
       });
     } finally {
       setIsSubmitting(false);
@@ -1081,7 +1164,6 @@ function ContactForm() {
           name="subject"
           value={formData.subject}
           onChange={handleChange}
-          required
           className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:outline-none"
           placeholder="Project inquiry"
         />
@@ -1101,23 +1183,20 @@ function ContactForm() {
       </div>
       
       {submitResult.show && (
-        <div className={`flex items-center gap-2 p-4 rounded-lg ${
-          submitResult.success 
-            ? 'bg-green-900/20 border border-green-500/20 text-green-400' 
-            : 'bg-red-900/20 border border-red-500/20 text-red-400'
-        }`}>
-          {submitResult.success ? <FaCheckCircle size={20} /> : <FaXTwitter size={20} />}
-          <span className="text-sm">{submitResult.message}</span>
+        <div className={`p-4 rounded-lg ${submitResult.success ? 'bg-green-900/20 text-green-400' : 'bg-red-900/20 text-red-400'}`}>
+          <div className="flex items-center gap-2">
+            {submitResult.success ? <FaCheckCircle size={20} /> : <FaXTwitter size={20} />}
+            <span>{submitResult.message}</span>
+          </div>
         </div>
       )}
       
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-4 bg-gradient-to-r from-red-500 to-red-600 rounded-lg font-semibold hover:from-red-600 hover:to-red-700 transition-all disabled:opacity-50 flex items-center justify-center gap-2 group"
+        className="w-full py-4 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors disabled:opacity-50"
       >
         {isSubmitting ? 'Sending...' : 'Send Message'}
-        {!isSubmitting && <span className="group-hover:translate-x-1 transition-transform">→</span>}
       </button>
     </form>
   );
