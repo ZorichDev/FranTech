@@ -1,18 +1,13 @@
-import { useState } from 'react'
-import PortfolioWebsite from './PortfolioWebsite'
-import './index.css'
+import React from 'react';
+import ErrorBoundary from './ErrorBoundary';
+import ProductionPortfolio from './PortfolioWebsite';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-   <div>
-    <PortfolioWebsite/>
-   </div>
-      
-    </>
-  )
+    <ErrorBoundary>
+      <ProductionPortfolio />
+    </ErrorBoundary>
+  );
 }
 
-export default App
+export default App;
