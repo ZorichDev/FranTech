@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import emailjs from 'emailjs-com';
 import profileIMG from "./img/techboy.jpg";
 import Resume from "./img/franzor cv.pdf";
 import certificate from "./img/TECHACADEMY.pdf";
@@ -370,7 +369,7 @@ function Nav({ active }) {
                       onClick={() => go(l)}>{l}</button>
             ))}
             {/* Primary CTA in nav */}
-            <button onClick={() => go('contact')} style={{
+            <button onClick={() => { track('hire_me_click'); go('contact'); }} style={{
               fontFamily: 'Bangers', letterSpacing: 2, fontSize: 16,
               background: COLORS.accent1, color: '#fff',
               border: '2.5px solid rgba(255,255,255,0.25)',
@@ -402,7 +401,7 @@ function Nav({ active }) {
                     style={{ fontSize: 36, animationDelay: `${i * 0.08}s` }}
                     onClick={() => go(l)}>{l}</button>
           ))}
-          <button onClick={() => go('contact')} style={{
+          <button onClick={() => { track('hire_me_click'); go('contact'); }} style={{
             fontFamily: 'Bangers', letterSpacing: 2, fontSize: 28,
             background: COLORS.accent1, color: '#fff',
             border: '3px solid rgba(255,255,255,0.25)',
@@ -427,7 +426,9 @@ function Hero() {
   const charRef = useRef(0);
   const timerRef = useRef(null);
 
+  // FIX 3: Added track('page_view', 'home') at the top of the typing useEffect
   useEffect(() => {
+    track('page_view', 'home');
     const tick = () => {
       const role = roles[roleRef.current];
       if (charRef.current <= role.length) {
@@ -534,8 +535,8 @@ function Hero() {
 
             {/* CTA buttons — clear hierarchy */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, marginBottom: 32 }}>
-              {/* PRIMARY CTA */}
-              <button className="hire-btn" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              {/* PRIMARY CTA — FIX 2: added track('hire_me_click') */}
+              <button className="hire-btn" onClick={() => { track('hire_me_click'); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
                 style={{
                   fontFamily: 'Bangers', letterSpacing: 2, fontSize: 20,
                   background: COLORS.accent1, color: '#fff',
@@ -565,8 +566,8 @@ function Hero() {
                 onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; e.currentTarget.style.color = COLORS.text; }}
               >⚡ SEE MY WORK</button>
 
-              {/* TERTIARY */}
-              <a href={Resume} download style={{
+              {/* TERTIARY — FIX 1: added track('cv_download') */}
+              <a href={Resume} download onClick={() => track('cv_download')} style={{
                 fontFamily: 'Bangers', letterSpacing: 2, fontSize: 20,
                 background: 'transparent', color: COLORS.muted,
                 border: `3px solid rgba(255,255,255,0.12)`,
@@ -1156,6 +1157,16 @@ function Skills() {
 }
 
 /* ──────────────── CONTACT ──────────────── */
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
+const track = (event, page = 'home') => {
+  fetch(`${API_URL}/api/analytics/track`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ event, page }),
+  }).catch(() => {});
+};
+
 function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState(null);
@@ -1167,24 +1178,24 @@ function ContactForm() {
     e.preventDefault();
     setSending(true);
     setStatus({ type: 'loading', msg: '⏳ Sending your message...' });
+
     try {
-      const now = new Date();
-      const res = await emailjs.send('service_ptzp7rd', 'template_uvkbxrd', {
-        to_email: 'francis1chinazor@gmail.com',
-        to_name: 'Francis Chinazor',
-        from_name: form.name,
-        from_email: form.email,
-        subject: form.subject || 'Portfolio Inquiry',
-        message: form.message,
-        date: now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
-        time: now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-      }, '3PD5AyCly9DCyS4u1');
-      if (res.status === 200) {
-        setStatus({ type: 'success', msg: '✅ Message sent! I\'ll get back to you within 24 hours.' });
+      const res = await fetch(`${API_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setStatus({ type: 'success', msg: "✅ Message sent! I'll get back to you within 24 hours." });
         setForm({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setStatus({ type: 'error', msg: `💥 ${data.error || 'Send failed. Email me directly: francis1chinazor@gmail.com'}` });
       }
     } catch {
-      setStatus({ type: 'error', msg: '💥 Send failed. Email me directly: francis1chinazor@gmail.com' });
+      setStatus({ type: 'error', msg: '💥 Network error. Email me directly: francis1chinazor@gmail.com' });
     } finally {
       setSending(false);
       setTimeout(() => setStatus(null), 7000);
@@ -1205,15 +1216,18 @@ function ContactForm() {
                  className="comic-input" placeholder="you@company.com" />
         </div>
       </div>
+
       <div style={{ marginBottom: 16 }}>
         <label style={{ fontSize: 13, fontWeight: 700, display: 'block', marginBottom: 6, color: COLORS.muted }}>SUBJECT</label>
         <input name="subject" value={form.subject} onChange={handleChange}
                className="comic-input" placeholder="e.g. Hiring inquiry / Project collaboration" />
       </div>
+
       <div style={{ marginBottom: 20 }}>
         <label style={{ fontSize: 13, fontWeight: 700, display: 'block', marginBottom: 6, color: COLORS.muted }}>MESSAGE *</label>
         <textarea name="message" value={form.message} onChange={handleChange} required
-                  rows={5} className="comic-input" placeholder="Tell me about the role or project — I'll get back to you within 24 hours."
+                  rows={5} className="comic-input"
+                  placeholder="Tell me about the role or project — I'll get back to you within 24 hours."
                   style={{ resize: 'vertical' }} />
       </div>
 
@@ -1221,12 +1235,14 @@ function ContactForm() {
         <div style={{
           padding: '12px 16px', borderRadius: 12, marginBottom: 16,
           background: status.type === 'success' ? 'rgba(78,205,196,0.12)' :
-                      status.type === 'error' ? 'rgba(233,69,96,0.12)' : 'rgba(245,166,35,0.1)',
-          border: `2px solid ${status.type === 'success' ? 'rgba(78,205,196,0.3)' :
-                              status.type === 'error' ? 'rgba(233,69,96,0.3)' : 'rgba(245,166,35,0.3)'}`,
+                      status.type === 'error'   ? 'rgba(233,69,96,0.12)' : 'rgba(245,166,35,0.1)',
+          border: `2px solid ${
+            status.type === 'success' ? 'rgba(78,205,196,0.3)' :
+            status.type === 'error'   ? 'rgba(233,69,96,0.3)'  : 'rgba(245,166,35,0.3)'
+          }`,
           fontFamily: 'Comic Neue', fontWeight: 700, fontSize: 14,
           color: status.type === 'success' ? COLORS.accent3 :
-                 status.type === 'error' ? COLORS.accent1 : COLORS.accent2,
+                 status.type === 'error'   ? COLORS.accent1  : COLORS.accent2,
         }}>{status.msg}</div>
       )}
 
@@ -1309,7 +1325,7 @@ function Contact() {
             ))}
 
             {/* Resume download CTA */}
-            <a href={Resume} download style={{
+            <a href={Resume} download onClick={() => track('cv_download')} style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
               marginTop: 8, padding: '14px 20px',
               fontFamily: 'Bangers', letterSpacing: 2, fontSize: 18,
