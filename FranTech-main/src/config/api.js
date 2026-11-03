@@ -1,4 +1,8 @@
-const configuredOrigin = (import.meta.env.VITE_API_URL || '').trim().replace(/\/+$/, '');
+
+const configuredOrigin = (
+  import.meta.env.VITE_API_URL || 'https://frantech.onrender.com'
+).trim().replace(/\/+$/, '');
+
 const configuredApiRoot = configuredOrigin.endsWith('/api')
   ? configuredOrigin
   : `${configuredOrigin}/api`;
