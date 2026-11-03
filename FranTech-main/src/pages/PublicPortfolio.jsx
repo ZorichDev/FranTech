@@ -129,16 +129,29 @@ export default function PublicPortfolio() {
       })
       .catch(() => {});
 
-    fetch(apiUrl('/projects'))
-      .then(response => response.ok ? response.json() : null)
-      .then(response => response.ok ? response.json().then(records => ({
-        records,
-        configured: response.headers.get('X-Portfolio-Configured') === 'true',
-      })) : null)
-      .then(result => {
-        if (active && result && Array.isArray(result.records) && (result.configured || result.records.length)) setProjects(result.records);
-      })
-      .catch(() => {});
+  fetch(apiUrl('/projects'))
+  .then(response => {
+    if (!response.ok) return null;
+
+    const configured =
+      response.headers.get('X-Portfolio-Configured') === 'true';
+
+    return response.json().then(records => ({
+      records,
+      configured,
+    }));
+  })
+  .then(result => {
+    if (
+      active &&
+      result &&
+      Array.isArray(result.records) &&
+      (result.configured || result.records.length)
+    ) {
+      setProjects(result.records);
+    }
+  })
+  .catch(error => console.error('Projects API error:', error));
 
     return () => { active = false; };
   }, []);
@@ -219,8 +232,17 @@ export default function PublicPortfolio() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Unable to send your message.');
+      const responseText = await response.text();
+
+      let data = {};
+
+      try {
+        data = responseText ? JSON.parse(responseText) : {};
+      } catch {
+        data = { error: responseText || 'The server returned an empty or invalid response.' };
+      }
+
+      if (!response.ok) throw new Error(data.error || `Request failed (${response.status}). Please try again.`);
       setForm({ name: '', email: '', subject: '', message: '', projectType: '', budget: '', companyWebsite: '' });
       setContactState({ status: 'success', message: 'Message received. I’ll be in touch soon.' });
     } catch (error) {

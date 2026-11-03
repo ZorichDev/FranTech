@@ -29,7 +29,20 @@ function LoginScreen({ onLogin }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-      const data = await res.json();
+      const responseText = await res.text();
+
+let data = {};
+
+try {
+  data = responseText ? JSON.parse(responseText) : {};
+} catch {
+  data = { error: 'The server returned an invalid response.' };
+}
+
+if (!res.ok) {
+  setError(data.error || `Login failed (${res.status}).`);
+  return;
+}
       if (res.ok) {
         localStorage.setItem('admin_token', data.token);
         onLogin(data.token);
