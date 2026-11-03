@@ -1212,13 +1212,24 @@ function ContactForm() {
         body: JSON.stringify(form),
       });
 
-      const data = await res.json();
+      const responseText = await res.text();
+
+      let data = {};
+
+      try {
+        data = responseText ? JSON.parse(responseText) : {};
+      } catch {
+        data = { error: responseText || 'The server returned an empty or invalid response.' };
+      }
 
       if (res.ok) {
         setStatus({ type: 'success', msg: "✅ Message sent! I'll get back to you within 24 hours." });
         setForm({ name: '', email: '', subject: '', message: '' });
       } else {
-        setStatus({ type: 'error', msg: `💥 ${data.error || 'Send failed. Please try again later.'}` });
+        setStatus({
+          type: 'error',
+          msg: `💥 ${data.error || `Request failed (${res.status}). Please try again.`}`
+        });
       }
     } catch (error) {
       const message = error instanceof Error && error.message
