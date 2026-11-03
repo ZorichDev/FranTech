@@ -1,0 +1,10 @@
+{
+  "name": "franzor-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev.js",
+    "dev:frontend": "npm --prefix FranTech-main run dev",
+    "dev:backend": "npm --prefix server run dev"
+  }
+}

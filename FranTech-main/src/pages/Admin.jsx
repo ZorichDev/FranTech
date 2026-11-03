@@ -94,50 +94,150 @@ const inputStyle = {
 // ── Analytics Panel ───────────────────────────────────
 function Analytics({ token }) {
   const [data, setData] = useState(null);
-  useEffect(() => {
-    fetch(`${API_URL}/api/analytics/summary`, {
-      headers: { Authorization: `Bearer ${token}` },
-    }).then(r => r.json()).then(setData).catch(() => {});
-  }, [token]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [refreshKey, setRefreshKey] = useState(0);
 
-  if (!data) return <p style={{ color: COLORS.muted }}>Loading analytics...</p>;
+  useEffect(() => {
+    const controller = new AbortController();
+    const loadAnalytics = async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const response = await fetch(`${API_URL}/api/analytics/summary`, {
+          headers: { Authorization: `Bearer ${token}` },
+          signal: controller.signal,
+        });
+        if (!response.ok) throw new Error('Analytics could not be loaded.');
+        setData(await response.json());
+      } catch (err) {
+        if (err.name !== 'AbortError') setError(err.message || 'Analytics could not be loaded.');
+      } finally {
+        if (!controller.signal.aborted) setLoading(false);
+      }
+    };
+
+    loadAnalytics();
+    return () => controller.abort();
+  }, [token, refreshKey]);
+
+  const number = value => new Intl.NumberFormat().format(value || 0);
+  const visitorCount = data?.uniqueVisitors || 0;
+  const downloadSessions = data?.uniqueCvDownloaders || 0;
+  const downloadRate = visitorCount ? Math.round((downloadSessions / visitorCount) * 100) : 0;
+  const recentEvents = data?.recentEvents || [];
 
   const stats = [
-    { label: 'Total Events', value: data.total, color: COLORS.accent4 },
-    { label: 'Page Views', value: data.pageViews, color: COLORS.accent3 },
-    { label: 'CV Downloads', value: data.cvDownloads, color: COLORS.accent2 },
-    { label: 'Hire Me Clicks', value: data.hireMeClicks, color: COLORS.accent1 },
+    { label: 'Visitor sessions', value: visitorCount, color: COLORS.accent4 },
+    { label: 'Page views', value: data?.pageViews, color: COLORS.accent3 },
+    { label: 'CV download sessions', value: downloadSessions, color: COLORS.accent2 },
+    { label: 'Total CV downloads', value: data?.cvDownloads, color: COLORS.accent1 },
   ];
 
   return (
-    <div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 16, marginBottom: 32 }}>
+    <div style={{ display: 'grid', gap: 24 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+        <div>
+          <p style={{ color: COLORS.muted, fontSize: 13, marginBottom: 5 }}>Portfolio activity</p>
+          <h3 style={{ color: COLORS.text, fontSize: 20, margin: 0 }}>Audience overview</h3>
+        </div>
+        <button type="button" onClick={() => setRefreshKey(value => value + 1)} disabled={loading} style={{
+          padding: '9px 14px', borderRadius: 8, border: '1px solid rgba(255,255,255,0.14)',
+          background: 'rgba(255,255,255,0.05)', color: COLORS.text, fontWeight: 700,
+          cursor: loading ? 'wait' : 'pointer', opacity: loading ? 0.65 : 1,
+        }}>
+          {loading ? 'Refreshing...' : 'Refresh'}
+        </button>
+      </div>
+
+      {error && (
+        <div role="alert" style={{
+          padding: '12px 16px', borderRadius: 8, border: `1px solid ${COLORS.accent1}66`,
+          background: `${COLORS.accent1}14`, color: COLORS.text, display: 'flex',
+          justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap',
+        }}>
+          <span>{error} Check the API connection and try again.</span>
+          <button type="button" onClick={() => setRefreshKey(value => value + 1)} style={{
+            border: 0, background: 'transparent', color: COLORS.accent1, fontWeight: 800, cursor: 'pointer',
+          }}>Try again</button>
+        </div>
+      )}
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 12 }}>
         {stats.map(s => (
           <div key={s.label} style={{
-            background: COLORS.panel, padding: '20px 16px', borderRadius: 12,
-            border: `2px solid ${s.color}44`, textAlign: 'center',
+            background: COLORS.panel, padding: '18px 20px', borderRadius: 10,
+            border: '1px solid rgba(255,255,255,0.08)', borderTop: `3px solid ${s.color}`,
           }}>
-            <div style={{ fontSize: 36, fontWeight: 800, color: s.color }}>{s.value}</div>
-            <div style={{ fontSize: 13, color: COLORS.muted, marginTop: 4 }}>{s.label}</div>
+            <div style={{ fontSize: 30, lineHeight: 1.15, fontWeight: 800, color: s.color }}>
+              {loading && !data ? '...' : number(s.value)}
+            </div>
+            <div style={{ fontSize: 13, color: COLORS.muted, marginTop: 7 }}>{s.label}</div>
           </div>
         ))}
       </div>
-      <h3 style={{ color: COLORS.text, marginBottom: 12 }}>Recent Events (Last 7 Days)</h3>
-      <div style={{ maxHeight: 300, overflowY: 'auto' }}>
-        {data.recentEvents.length === 0
-          ? <p style={{ color: COLORS.muted }}>No events yet.</p>
-          : data.recentEvents.map(ev => (
-            <div key={ev._id} style={{
-              display: 'flex', justifyContent: 'space-between',
-              padding: '8px 12px', borderBottom: '1px solid rgba(255,255,255,0.06)',
-              fontSize: 13,
-            }}>
-              <span style={{ color: COLORS.accent3 }}>{ev.event}</span>
-              <span style={{ color: COLORS.muted }}>{new Date(ev.createdAt).toLocaleString()}</span>
-            </div>
-          ))
-        }
+
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16,
+        flexWrap: 'wrap', padding: '14px 18px', borderRadius: 10,
+        background: 'rgba(78,205,196,0.08)', border: '1px solid rgba(78,205,196,0.18)',
+      }}>
+        <div>
+          <div style={{ color: COLORS.muted, fontSize: 12, marginBottom: 4 }}>CV download rate</div>
+          <strong style={{ color: COLORS.accent3, fontSize: 22 }}>{number(downloadRate)}%</strong>
+          <span style={{ color: COLORS.muted, fontSize: 12, marginLeft: 9 }}>of visitor sessions downloaded the CV</span>
+        </div>
+        <div style={{ color: COLORS.muted, fontSize: 13 }}>
+          {number(data?.hireMeClicks)} hire-me clicks
+        </div>
       </div>
+
+      <section style={{ border: '1px solid rgba(255,255,255,0.08)', borderRadius: 10, overflow: 'hidden' }}>
+        <div style={{
+          display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12,
+          padding: '16px 18px', background: COLORS.panel, flexWrap: 'wrap',
+        }}>
+          <h3 style={{ color: COLORS.text, fontSize: 16, margin: 0 }}>Recent activity</h3>
+          <span style={{ color: COLORS.muted, fontSize: 12 }}>Last 7 days · latest 50 events</span>
+        </div>
+        {recentEvents.length === 0 ? (
+          <p style={{ color: COLORS.muted, padding: '20px 18px', margin: 0 }}>
+            {loading ? 'Loading activity...' : 'No activity recorded in the last 7 days.'}
+          </p>
+        ) : (
+          <div style={{ maxHeight: 380, overflowY: 'auto' }}>
+            {recentEvents.map(ev => {
+              let source = 'Direct';
+              try {
+                if (ev.referrer) source = new URL(ev.referrer).hostname;
+              } catch {
+                source = 'External referrer';
+              }
+
+              const eventColor = ev.event === 'cv_download' ? COLORS.accent2
+                : ev.event === 'hire_me_click' ? COLORS.accent1 : COLORS.accent3;
+
+              return (
+                <div key={ev._id} style={{
+                  display: 'grid', gridTemplateColumns: 'minmax(0,1fr) auto',
+                  alignItems: 'center', gap: 12, padding: '12px 18px',
+                  borderTop: '1px solid rgba(255,255,255,0.06)', fontSize: 13,
+                }}>
+                  <span style={{ color: eventColor, fontWeight: 800, textTransform: 'capitalize', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {ev.event.replaceAll('_', ' ')}
+                  </span>
+                  <span style={{ color: COLORS.muted, gridColumn: '1 / -1', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {ev.page || 'home'} · {source}
+                  </span>
+                  <time dateTime={ev.createdAt} style={{ color: COLORS.muted, textAlign: 'right', whiteSpace: 'nowrap' }}>
+                    {new Date(ev.createdAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}
+                  </time>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </section>
     </div>
   );
 }

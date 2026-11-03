@@ -1159,11 +1159,37 @@ function Skills() {
 /* ──────────────── CONTACT ──────────────── */
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
+let visitorSessionId;
+const createVisitorSessionId = () => globalThis.crypto?.randomUUID?.()
+  || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+const getVisitorSessionId = () => {
+  if (visitorSessionId) return visitorSessionId;
+
+  try {
+    visitorSessionId = sessionStorage.getItem('portfolioVisitorSession');
+    if (!visitorSessionId) {
+      visitorSessionId = createVisitorSessionId();
+      sessionStorage.setItem('portfolioVisitorSession', visitorSessionId);
+    }
+  } catch {
+    visitorSessionId = createVisitorSessionId();
+  }
+
+  return visitorSessionId;
+};
+
 const track = (event, page = 'home') => {
   fetch(`${API_URL}/api/analytics/track`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ event, page }),
+    body: JSON.stringify({
+      event,
+      page,
+      visitorId: getVisitorSessionId(),
+      referrer: document.referrer,
+    }),
+    keepalive: true,
   }).catch(() => {});
 };
 
@@ -1192,10 +1218,13 @@ function ContactForm() {
         setStatus({ type: 'success', msg: "✅ Message sent! I'll get back to you within 24 hours." });
         setForm({ name: '', email: '', subject: '', message: '' });
       } else {
-        setStatus({ type: 'error', msg: `💥 ${data.error || 'Send failed. Email me directly: francis1chinazor@gmail.com'}` });
+        setStatus({ type: 'error', msg: `💥 ${data.error || 'Send failed. Please try again later.'}` });
       }
-    } catch {
-      setStatus({ type: 'error', msg: '💥 Network error. Email me directly: francis1chinazor@gmail.com' });
+    } catch (error) {
+      const message = error instanceof Error && error.message
+        ? `💥 ${error.message}`
+        : '💥 Network error. Please check the API connection and try again.';
+      setStatus({ type: 'error', msg: message });
     } finally {
       setSending(false);
       setTimeout(() => setStatus(null), 7000);
